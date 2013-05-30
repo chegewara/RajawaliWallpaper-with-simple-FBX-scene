@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application Name -->
+    <string name="app_name">Rajawali Wallpaper Template</string>
+
+    <!-- Name in Live Wallpaper Picker list -->
+    <string name="lwp_name">Rajawali Template</string>
+
+    <!-- Description in Live Wallpaper Picker list -->
+    <string name="lwp_desc">Example wallpaper that uses Rajawali, an open-source OpenGL ES 2.x engine for Android.</string>
+
+    <!-- Author -->
+    <string name="lwp_author">Rajawali Contributors</string>
+
+    <!-- Quick little message displayed when the Live Wallpaper Picker is opened -->
+    <!-- The message text is the prefix, lwp_name, and suffix concatenated -->
+    <string name="picker_toast_prefix">Choose \"</string>
+    <string name="picker_toast_suffix">\" from the list of live wallpapers</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="point_light">Point light settings</string>
+    <string name="spot_light">Spot light settings</string>
+    <string name="direct_light">Directional light settings</string>
+    <string name="light_on">Turn on/off light</string>
+    <string name="turn_on">Turn on/off light</string>
+    <string name="intensity">Intensity</string>
+    <string name="coneAngle">Cone angle</string>
+
+</resources>
