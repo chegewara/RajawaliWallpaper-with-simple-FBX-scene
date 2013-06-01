@@ -3,6 +3,24 @@
     android:title="@string/settings_title" >
    
     <PreferenceScreen
+        android:key="camera"
+        android:title="Camera"
+        android:persistent="false">    
+	    <PreferenceScreen android:key="position" android:title="Position">
+	        <EditTextPreference android:title="x" android:key="cam_pos_x"/>
+	        <EditTextPreference android:title="y" android:key="cam_pos_y"/>
+	        <EditTextPreference android:title="z" android:key="cam_pos_z"/>
+	    </PreferenceScreen>
+	    <PreferenceScreen android:key="lookAt" android:title="Look At">
+	        <EditTextPreference android:title="x" android:key="cam_look_x"/>
+	        <EditTextPreference android:title="y" android:key="cam_look_y"/>
+	        <EditTextPreference android:title="z" android:key="cam_look_z"/>
+	    </PreferenceScreen>
+	    <EditTextPreference android:title="Field of view" android:key="FoV" android:defaultValue="60"/>
+	    	    
+	 </PreferenceScreen>
+
+    <PreferenceScreen
         android:key="point"
         android:title="@string/point_light"
         android:persistent="false">
@@ -11,9 +29,14 @@
 	        android:title="@string/turn_on"
 	        android:defaultValue="true" />
 	    <EditTextPreference android:key="point_light_power" android:title="Power" android:defaultValue="100"/>    
-    </PreferenceScreen>
+	    <PreferenceScreen android:key="position" android:title="Position">
+	        <EditTextPreference android:title="x" android:key="point_pos_x"/>
+	        <EditTextPreference android:title="y" android:key="point_pos_y"/>
+	        <EditTextPreference android:title="z" android:key="point_pos_z"/>
+	    </PreferenceScreen>
+	 </PreferenceScreen>
 
-
+    
     <PreferenceScreen
         android:key="spot"
         android:title="@string/spot_light"
@@ -22,8 +45,23 @@
 	        android:key="spot_light_on"
 	        android:title="@string/turn_on"
 	        android:defaultValue="true" />
-	    <EditTextPreference android:key="spot_light_power" android:title="@string/intensity" android:defaultValue="100"/>
-	    <EditTextPreference android:title="@string/coneAngle" android:key="spot_light_cone" android:defaultValue="60"/>
+	    <EditTextPreference android:key="spot_light_power" android:title="@string/intensity" android:defaultValue="10"/>
+	    <EditTextPreference android:title="@string/coneAngle" android:key="spot_light_cone" android:defaultValue="1"/>
+	    <PreferenceScreen android:key="position" android:title="Position">
+	        <EditTextPreference android:title="x" android:key="spot_pos_x"/>
+	        <EditTextPreference android:title="y" android:key="spot_pos_y"/>
+	        <EditTextPreference android:title="z" android:key="spot_pos_z"/>
+	    </PreferenceScreen>
+	    <PreferenceScreen android:key="direction" android:title="Direction">
+	        <EditTextPreference android:title="x" android:key="spot_dir_x"/>
+	        <EditTextPreference android:title="y" android:key="spot_dir_y"/>
+	        <EditTextPreference android:title="z" android:key="spot_dir_z"/>	        
+	    </PreferenceScreen>
+	    <PreferenceScreen android:key="lookAt" android:title="Look At">
+	        <EditTextPreference android:title="x" android:key="spot_look_x"/>
+	        <EditTextPreference android:title="y" android:key="spot_look_y"/>
+	        <EditTextPreference android:title="z" android:key="spot_look_z"/>
+	    </PreferenceScreen>
      </PreferenceScreen>
 
 
@@ -36,5 +74,23 @@
 	        android:title="@string/turn_on"
 	        android:defaultValue="true" />
 	    <EditTextPreference android:key="direct_light_power" android:title="@string/intensity" android:defaultValue="100"/>
-    </PreferenceScreen>
+ 	    <PreferenceScreen android:key="position" android:title="Position">
+	        <EditTextPreference android:title="x" android:key="direct_pos_x"/>
+	        <EditTextPreference android:title="y" android:key="direct_pos_y"/>
+	        <EditTextPreference android:title="z" android:key="direct_pos_z"/>
+	    </PreferenceScreen>
+	    <PreferenceScreen android:key="direction" android:title="Direction">
+	        <EditTextPreference android:title="x" android:key="direct_dir_x"/>
+	        <EditTextPreference android:title="y" android:key="direct_dir_y"/>
+	        <EditTextPreference android:title="z" android:key="direct_dir_z"/>	        
+	    </PreferenceScreen>
+	    <PreferenceScreen android:key="lookAt" android:title="Look At">
+	        <EditTextPreference android:title="x" android:key="direct_look_x"/>
+	        <EditTextPreference android:title="y" android:key="direct_look_y"/>
+	        <EditTextPreference android:title="z" android:key="direct_look_z"/>
+	    </PreferenceScreen>
+	</PreferenceScreen>
+    <CheckBoxPreference android:title="Animate cube" android:key="animateCube" android:defaultValue="false"/>
+    <CheckBoxPreference android:key="showCar" android:title="Show sphere" android:defaultValue="false"/>
+    <CheckBoxPreference android:key="showCube" android:title="Show cube" android:defaultValue="true"/>
 </PreferenceScreen>

@@ -54,7 +54,7 @@ Objects:  {
 			Property: "Lcl Translation", "Lcl Translation", "A+",0,0,0
 			Property: "Lcl Rotation", "Lcl Rotation", "A+",0,0,0
 			Property: "Lcl Scaling", "Lcl Scaling", "A+",1.0,1.0,1.0
-			Property: "FieldOfView", "FieldOfView", "A+",65.9
+			Property: "FieldOfView", "FieldOfView", "A+",60
 			Property: "FieldOfViewX", "FieldOfView", "A+",1
 			Property: "FieldOfViewY", "FieldOfView", "A+",1
 			Property: "FocalLength", "Number", "A+",20.000000
@@ -65,9 +65,9 @@ Objects:  {
 			Property: "NearPlane", "double", "",0.100000
 			Property: "FarPlane", "double", "",99.999994
 		}
-		Position: 15.0000000001,7,15.000000001
+		Position: 10.0,0.01,20.01
 		Up: -0.634915,0.691947,-0.343646
-		LookAt: -0.0,-0.0,0.0
+		LookAt: 0.0,0.0,0.0
 	}
 	Model: "Model::Area", "Light" {
 		Version: 232
@@ -76,31 +76,31 @@ Objects:  {
 			Property: "Lcl Rotation", "Lcl Rotation", "A+",0,0,0
 			Property: "Lcl Scaling", "Lcl Scaling", "A+",1,1,1
 			Property: "Color", "Color", "A",1.00,0.00,0.00
-			Property: "Intensity", "Intensity", "A+",100.00
+			Property: "Intensity", "Intensity", "A+",0.00
 			Property: "LightType", "enum", "",1
 		}
 	}
 	Model: "Model::Spot", "Light" {
 		Version: 232
 		Properties60:  {
-			Property: "Lcl Translation", "Lcl Translation", "A+",0,0,10
+			Property: "Lcl Translation", "Lcl Translation", "A+",0,0,50
 			Property: "Lcl Rotation", "Lcl Rotation", "A+",0,0,0
 			Property: "Lcl Scaling", "Lcl Scaling", "A+",1.000000000000000,1.000000000000000,1.000000000000000
 			Property: "Color", "Color", "A",0.00,0.00,1.00
 			Property: "Intensity", "Intensity", "A+",10.00
 			Property: "LightType", "enum", "",2
-			Property: "Cone angle", "Cone angle", "A+",64.00
+			Property: "Cone angle", "Cone angle", "A+",1.00
 		}
 	}
 	Model: "Model::Point", "Light" {
 		Version: 232
 		Properties60:  {
-			Property: "Lcl Translation", "Lcl Translation", "A+",0,10,0
+			Property: "Lcl Translation", "Lcl Translation", "A+",0,50,0
 			Property: "Lcl Rotation", "Lcl Rotation", "A+",0,0,0
 			Property: "Lcl Scaling", "Lcl Scaling", "A+",1.000000000000000,1.000000000000000,1.000000000000000
 
 			Property: "Color", "Color", "A",0.00,1.0,0.00
-			Property: "Intensity", "Intensity", "A+",100.00
+			Property: "Intensity", "Intensity", "A+",50.00
 			Property: "LightType", "enum", "",0
 		}
 	}

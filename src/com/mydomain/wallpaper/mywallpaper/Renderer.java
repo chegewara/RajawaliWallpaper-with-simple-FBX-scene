@@ -1,49 +1,81 @@
 package com.mydomain.wallpaper.mywallpaper;
 
 import java.util.ArrayList;
-import java.util.Map;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import rajawali.BaseObject3D;
+import rajawali.Camera;
 import rajawali.animation.Animation3D;
 import rajawali.animation.RotateAnimation3D;
 import rajawali.lights.ALight;
 import rajawali.lights.DirectionalLight;
 import rajawali.lights.PointLight;
 import rajawali.lights.SpotLight;
+import rajawali.materials.DiffuseMaterial;
+import rajawali.materials.PhongMaterial;
 import rajawali.math.Vector3;
 import rajawali.parser.AParser.ParsingException;
 import rajawali.parser.fbx.FBXParser;
+import rajawali.primitives.Cube;
+import rajawali.primitives.Sphere;
 import rajawali.renderer.RajawaliRenderer;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Context; 
 
 public class Renderer extends RajawaliRenderer{
 	private Animation3D mAnim;
-	private SharedPreferences settings;
 	float pointLightPower;
 	float spotLightPower;
 	float directLightPower;
 	float coneAngle;
-
+	Vector3 spotPos;
+	Vector3 spotDir;
+	Vector3 spotLookAt;
+	Vector3 directPos;
+	Vector3 directLookAt;
+	Vector3 directDir;
+	Vector3 pointPos;
+	boolean animateCube = true;
+	Vector3 camPos;
+	Vector3 camLookAt;
+	float Fov;
+	boolean car;
+	boolean cube;
+	boolean settings;
 	public Renderer(Context context) {
 		super(context);		
 	}
 
 	public void initScene() {
-		ALight light = new DirectionalLight(1,0,0);
-		light.setPower(0);
-		light.setColor(1, 1, 0);
-		light.setPosition(0, 3, 0);
+		Sphere obj = new Sphere(5, 10, 10);
+		obj.setMaterial(new DiffuseMaterial());
 		
-		Vector3 axis = new Vector3(10, 10, 10);
+		Camera cam = new Camera();
+		cam.setPosition(20, 0, 0);
+		cam.setFieldOfView(60);
+		cam.setLookAt(0, 0, 0);
+/*		
+		PointLight light1 = new PointLight();
+		DirectionalLight light2 = new DirectionalLight();
+		SpotLight light3 = new SpotLight();
+		light1.setPosition(50, 0, 0);
+		light1.setPower(130);
+		light2.setPosition(0, 50, 0);
+		light2.setPower(0);
+		light2.setLookAt(0, 0, 0);
+		light3.setPosition(0, 0, 50);
+		light3.setPower(0.01f);
+		light3.setLookAt(0, 0, 0);
+		light3.setCutoffAngle(2);
+//		obj.addLight(light1);
+//		obj.addLight(light2);
+		obj.addLight(light3);
+	*/	
+		Vector3 axis = new Vector3(10, 10, 0);
 		axis.normalize();
 		mAnim = new RotateAnimation3D(axis, 360);
 		mAnim.setDuration(8000);
 		mAnim.setRepeatMode(Animation3D.RepeatMode.INFINITE);
-//		mAnim.setInterpolator(new AccelerateDecelerateInterpolator());
 		
 		try {
 			// -- Model by Sampo Rask (http://www.blendswap.com/blends/characters/low-poly-rocks-character/)
@@ -54,40 +86,69 @@ public class Renderer extends RajawaliRenderer{
 			addChild(o);
 //			mAnim.setTransformable3D(o);
 			mAnim.setTransformable3D(o.getChildByName("Model::Cube"));
-			if(o.getLight(0).getLightType() == 0)
-				o.getLight(0).setPower(pointLightPower/100);
-			if(o.getLight(1).getLightType() == 1)
-				o.getLight(1).setPower(spotLightPower/100);
-			if(o.getLight(2).getLightType() == 2)
-				o.getLight(2).setPower(directLightPower/100);
+			obj.addLight(o.getLight(0));
+			obj.addLight(o.getLight(1));
+			obj.addLight(o.getLight(2));
 			
-//			o.addLight(light);
+			cam.setFieldOfView(getCurrentCamera().getFieldOfView());
+			cam.setPosition(getCurrentCamera().getPosition());
+			cam.setLookAt(getCurrentCamera().getLookAt());
 			
+		mAnim.setTransformable3D(o);
 		} catch(ParsingException e) {
 			e.printStackTrace();
 		} 
 		
+		addChild(obj);
 		getScene(0).registerAnimation(mAnim);
+		getScene(0).switchCamera(cam);
 		
 	}
 
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
-		mAnim.play();
+		if(animateCube)
+			mAnim.play();
+		else mAnim.pause();
+		Camera cam = getCurrentCamera();
+		cam.setPosition(camPos);
+		cam.setFieldOfView(Fov);
+		cam.setLookAt(camLookAt);		
 	}
 
 	public void onDrawFrame(GL10 glUnused) {
 		super.onDrawFrame(glUnused);
-
+	
 		ArrayList<BaseObject3D> o = getCurrentScene().getChildrenCopy();
+		o.get(0).setVisible(cube);
+		o.get(1).setVisible(car);
 		if(o != null){
-			o.get(0).getLight(0).setPower(pointLightPower/100);
-			o.get(0).getLight(2).setPower(directLightPower);
-			o.get(0).getLight(1).setPower(spotLightPower/100);
-			SpotLight sp = (SpotLight) o.get(0).getLight(1);
-			sp.setCutoffAngle(coneAngle);
 			
+			for(int n = 0; n<3; n++){
+				ALight light = o.get(0).getLight(n);	
+				if(light.getLightType() == ALight.POINT_LIGHT){
+					light.setPower(pointLightPower/100);
+					light.setPosition(pointPos);
+				}
+				else if(light.getLightType() == ALight.SPOT_LIGHT){
+					SpotLight sp = (SpotLight) light;
+					sp.setPower(spotLightPower/100);
+					sp.setPosition(spotPos);
+					sp.setDirection(spotDir);
+					sp.setLookAt(spotLookAt);
+					sp.setCutoffAngle(coneAngle);
+				}
+				else if(light.getLightType() == ALight.DIRECTIONAL_LIGHT){
+					DirectionalLight dl = (DirectionalLight) light;
+					dl.setPower(directLightPower/100);
+					dl.setPosition(directPos);
+					dl.setDirection(directDir);
+					dl.setLookAt(directLookAt);
+				}				
+								
+			}
 		}
+		
 	}
 
 }
