@@ -20,6 +20,7 @@ import rajawali.parser.fbx.FBXParser;
 import rajawali.primitives.Cube;
 import rajawali.primitives.Sphere;
 import rajawali.renderer.RajawaliRenderer;
+import rajawali.util.RajLog;
 import android.content.Context; 
 
 public class Renderer extends RajawaliRenderer{
@@ -50,27 +51,12 @@ public class Renderer extends RajawaliRenderer{
 		Sphere obj = new Sphere(5, 10, 10);
 		obj.setMaterial(new DiffuseMaterial());
 		
+		RajLog.systemInformation();
 		Camera cam = new Camera();
 		cam.setPosition(20, 0, 0);
 		cam.setFieldOfView(60);
 		cam.setLookAt(0, 0, 0);
-/*		
-		PointLight light1 = new PointLight();
-		DirectionalLight light2 = new DirectionalLight();
-		SpotLight light3 = new SpotLight();
-		light1.setPosition(50, 0, 0);
-		light1.setPower(130);
-		light2.setPosition(0, 50, 0);
-		light2.setPower(0);
-		light2.setLookAt(0, 0, 0);
-		light3.setPosition(0, 0, 50);
-		light3.setPower(0.01f);
-		light3.setLookAt(0, 0, 0);
-		light3.setCutoffAngle(2);
-//		obj.addLight(light1);
-//		obj.addLight(light2);
-		obj.addLight(light3);
-	*/	
+
 		Vector3 axis = new Vector3(10, 10, 0);
 		axis.normalize();
 		mAnim = new RotateAnimation3D(axis, 360);
